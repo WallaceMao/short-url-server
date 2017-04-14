@@ -1,0 +1,1 @@
+nodemon -r dotenv/config bin/www dotenv_config_path=./.env

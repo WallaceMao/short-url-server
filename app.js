@@ -36,7 +36,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // ip过滤
-app.use(ipfilter(config.security.whiteList, {mode: 'allow'}));
+// app.use();
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -49,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 //  rsq api，需要做token+ip的权限认证
 app.use('/rsq',
+    ipfilter(config.security.whiteList, {mode: 'allow'}),
     passport.authenticate('localapikey', { session: false,failureRedirect: '/unauthorized' }),
     rsqApi);
 

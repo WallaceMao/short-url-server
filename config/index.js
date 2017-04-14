@@ -5,21 +5,21 @@
 var config = {};
 
 config.mongo = {
-	url: 'mongodb://182.92.222.40:27017/shortUrl',
-	user: 'shortUrlUser',
-	pwd: '640321'
+	url: process.env.MONGO_URL || '',
+	user: process.env.MONGO_USER || '',
+	pwd: process.env.MONGO_PWD || ''
 };
 config.log = {
-	level: 'debug',
-	logFile: 'logs/winston.log',
-	exceptionFile: 'logs/exception.log'
+	level: process.env.LOG_LEVEL || '',
+	logFile: process.env.LOG_LOG_FILE || '',
+	exceptionFile: process.env.LOG_EXCEPTION_FILE || ''
 };
 config.sys = {
-	shortUrlDomain: 'rurl.ltd'
+	shortUrlDomain: process.env.SYS_SHORT_URL_DOMAIN || ''
 };
 config.security = {
-	whiteList: ['127.0.0.1/24'],
-	blackList: []
+	whiteList: (process.env.SECURITY_WHITE_LIST || '').split(','),
+	blackList: (process.env.SECURITY_BLACK_LIST || '').split(',')
 };
 
 module.exports = config;

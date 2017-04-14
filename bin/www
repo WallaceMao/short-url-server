@@ -10,6 +10,10 @@ var init = require('../init');
 var debug = require('debug')('short-url-server:server');
 var http = require('http');
 
+console.log('process.env:' + process.env.LOG_LEVEL);
+console.log('process.env:' + process.env.LOG_LOG_FILE);
+console.log('process.env:' + process.env.LOG_EXCEPTION_FILE);
+
 /**
  * init base config
  */
