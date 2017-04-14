@@ -3,6 +3,10 @@ var router = express.Router();
 var convertService = require('../services/convertService');
 var handlers = require('../handlers');
 
+router.get('/unauthorized', function(req, res, next){
+	res.status(403).json({errcode: 403});
+});
+
 /* GET url redirect */
 router.get('/:shortCode', function(req, res, next) {
 	var code = req.params.shortCode;

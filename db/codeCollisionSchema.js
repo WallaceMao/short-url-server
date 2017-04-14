@@ -5,9 +5,8 @@ var mongoose = require('mongoose');
 
 module.exports = mongoose.Schema({
 	dateCreated: {type: Date},
+	shortCode: {type: String},
 	convertVersion: {type: String},
-	longUrl: {type: String, index: { unique: true } },
-	shortCode: {type: String, index: { unique: true } },
-	visitCount: {type: Number},
-	lastVisited: {type: Date}
+	reason: {type: String},
+	retryTimes: {type: Number}
 });

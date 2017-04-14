@@ -17,5 +17,9 @@ config.log = {
 config.sys = {
 	shortUrlDomain: 'rurl.ltd'
 };
+config.security = {
+	whiteList: ['127.0.0.1/24'],
+	blackList: []
+};
 
 module.exports = config;

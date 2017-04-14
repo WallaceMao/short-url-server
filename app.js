@@ -4,15 +4,39 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var config = require('./config');
 
 var index = require('./routes/index');
 var rsqApi = require('./routes/rsqApi');
+
+// IP过滤
+var ipfilter = require('express-ipfilter').IpFilter;
+
+
+// token权限
+var passport = require('passport');
+var dao = require('./db/dao');
+var LocalAPIKeyStrategy = require('passport-localapikey').Strategy;
+
+passport.use(new LocalAPIKeyStrategy({
+      apiKeyField: 'token'
+    },
+    function(apikey, done) {
+      dao.checkAuth(apikey)
+          .then(function(client){
+            return done(null, client);
+          });
+    }
+));
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// ip过滤
+app.use(ipfilter(config.security.whiteList, {mode: 'allow'}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,7 +48,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 //  rsq api，需要做token+ip的权限认证
-app.use('/rsq', rsqApi);
+app.use('/rsq',
+    passport.authenticate('localapikey', { session: false,failureRedirect: '/unauthorized' }),
+    rsqApi);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

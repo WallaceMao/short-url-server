@@ -7,6 +7,8 @@ var bluebird = require('bluebird');
 var config = require('../config');
 
 var urlMappingSchema = require('./urlMappingSchema');
+var clientSchema = require('./clientSchema');
+var codeCollisionSchema = require('./codeCollisionSchema');
 
 
 function init(){
@@ -25,6 +27,10 @@ function init(){
 }
 
 var UrlMapping = mongoose.model('UrlMapping', urlMappingSchema);
+var Client = mongoose.model('Client', clientSchema);
+var CodeCollision = mongoose.model('CodeCollision', codeCollisionSchema);
 
 exports.init = init;
 exports.UrlMapping = UrlMapping;
+exports.Client = Client;
+exports.CodeCollision = CodeCollision;

@@ -22,7 +22,7 @@ function longUrl2ShortUrl(longUrl){
 					.then((result) => {
 						winston.debug('result code is:' + JSON.stringify(result));
 						return dao.createMapping(result);
-					})
+					});
 			}
 		});
 }
@@ -46,5 +46,45 @@ function shortUrl2LongUrl(shortCode){
 		});
 }
 
+/**
+ * 根据params.longUrl或者shortCode删除数据库中的映射
+ * @param params
+ */
+function deleteMappings(params){
+	if(params.longUrl){
+		return dao.deleteMappingByLongUrl(params);
+	}else if(params.shortCode){
+		return dao.deleteMappingByShortCode(params);
+	}else{
+		return Promise.reject(new Error('params longUrl or shortCode not found when delete mappings'));
+	}
+}
+
+/**
+ * 根据params.longUrl或者shortCode查询数据库中的映射
+ * @param params
+ */
+function queryMappings(params){
+	if(params.longUrl){
+		return dao.getMappingByLongUrl(params);
+	}else if(params.shortCode){
+		return dao.getMappingByShortCode(params);
+	}else{
+		return Promise.reject(new Error('params longUrl or shortCode not found when query mappings'));
+	}
+}
+
+function mongoTest(){
+	var params = {longUrl: 'http://www.rishiqing.com/task?t=12343wefw32f32sf3ee2111'};
+	return convertService.convert(params)
+		.then((result) => {
+			winston.debug('result code is:' + JSON.stringify(result));
+			return dao.createMapping(result);
+		});
+}
+
 exports.longUrl2ShortUrl = longUrl2ShortUrl;
 exports.shortUrl2LongUrl = shortUrl2LongUrl;
+exports.deleteMappings = deleteMappings;
+exports.queryMappings = queryMappings;
+exports.mongoTest = mongoTest;

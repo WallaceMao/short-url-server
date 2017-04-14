@@ -6,13 +6,16 @@
  * shortCode：转换之后的code值
  */
 'use strict'
-var db = require('../db');
+var dao = require('../db/dao');
 
 var CONVERT_VERSION = 1;
 
 function convert(params){
 	return getCode(0)
 		.then(function(code){
+			if(!code){
+				return Promise.reject(new Error('short code not generated'));
+			}
 			params.convertVersion = CONVERT_VERSION;
 			params.shortCode = code;
 			return params;
@@ -33,7 +36,7 @@ function getCode(redoTimes){
 	var code = randomCode();
 	winston.debug('code is:' + code);
 	winston.debug('redoTimes is:' + redoTimes);
-	return db.UrlMapping.findOne({shortCode: code}).exec()
+	return dao.getMappingByShortCode({shortCode: code})
 		.then(function(m){
 			winston.debug('m is:' + m);
 			if(null === m){
@@ -42,7 +45,11 @@ function getCode(redoTimes){
 
 			winston.error('duplicated short code occurred:' + code);
 			//TODO 发生碰撞之后需要记录
-
+			dao.logCodeCollision({
+				shortCode: code,
+				convertVersion: CONVERT_VERSION,
+				retryTimes: redoTimes
+			});
 			//-----------
 
 			//设置最大允许的重试次数
@@ -50,7 +57,11 @@ function getCode(redoTimes){
 				winston.error('reach maximum short code regenerate times, code is '
 					+ code + ', regenerate times is ' + redoTimes);
 				//TODO 超过重试的最大次数后，需要记录
-
+				dao.logMaximumCodeRegeneration({
+					shortCode: code,
+					convertVersion: CONVERT_VERSION,
+					retryTimes: redoTimes
+				});
 				//--------
 				return null;
 			}
