@@ -60,5 +60,34 @@ token和ip白名单
 ## 统计短链接访问次数
 ## 统计短链接最后访问时间
 
-# 坑
+# 启动流程
+
+## 方式1：使用dotenv配置环境变量
+
+1. npm全局安装dotenv模块
+```npm install dotenv -g```
+
+2. 在项目根目录下新建.env文件
+在.env文件中配置基本项，示例如下：
+```
+MONGO_URL=mongodb://123.123.123.123:27017/shortUrl
+MONGO_USER=username
+MONGO_PWD=password
+
+LOG_LEVEL=debug
+LOG_LOG_FILE=./logs/winston.log
+LOG_EXCEPTION_FILE=./logs/exception.log
+
+SYS_SHORT_URL_DOMAIN=a.com
+
+SECURITY_WHITE_LIST=114.114.114.114/32,127.0.0.1/24
+SECURITY_BLACK_LIST=
+```
+
+3. 使用node -r参数，预加载dotenv模块，读入环境变量
+node:
+```node -r dotenv/config bin/www dotenv_config_path=./.env```
+
+nodemon:
+```nodemon -r dotenv/config bin/www dotenv_config_path=./.env```
 
