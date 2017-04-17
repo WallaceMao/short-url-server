@@ -1,3 +1,16 @@
+# 请求权限验证
+
+## token认证
+
+在beta或prod相应的地址url中加入token参数，例如
+http://123.123.123.123:3000/rsq/shorturl?token=xxxxxxxxxxxxxxxxxxxxx
+
+ip地址和token值，向部署人员索取
+
+## ip认证
+
+请求会限制内网ip访问，提交需要访问短链接服务器的内网ip地址。
+
 # API (token + ip授权)
 
 ## 获取长短链接映射（*）
@@ -60,6 +73,10 @@ return value:
 通过rurl.ltd/{shortCode}访问短链接。shortCode为8位短链接代码值
 如果shortCode不存在，则返回code not exist错误
 如果shortCode存在，则根据长短链接映射，跳转到指定的长链接映射上。
+
+# 服务器集成
+
+beta与prod访问地址不一样
 
 # 问题整理
 
