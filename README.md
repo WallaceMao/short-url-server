@@ -19,16 +19,18 @@ ip地址和token值，向部署人员索取
 
 ### 请求方式：
 post /rsq/shorturl
-body(JSON): {longUrl:"http://www.rishiqing.com/task?t=12343wefw32f32sf32"}
+body(JSON): `{longUrl:"http://www.rishiqing.com/task?t=12343wefw32f32sf32"}`
 
 ### 返回值：
 return value:
-{
-    errcode: 0,
-    longUrl: "http://www.rishiqing.com/task?t=12343wefw32f32sf32",
-    shortCode: "dIfw8Ds0",
-    shortDomain: "rurl.ltd"
-}
+
+    {
+        errcode: 0,
+        longUrl: "http://www.rishiqing.com/task?t=12343wefw32f32sf32",
+        shortCode: "dIfw8Ds0",
+        shortDomain: "rurl.ltd"
+    }
+
 
 
 ## 删除长短链接映射
@@ -37,34 +39,38 @@ return value:
 
 ### 请求方式：
 post /rsq/shorturl/delete
-body(JSON): {longUrl:"http://www.rishiqing.com/task?t=12343wefw32f32sf32"}
+body(JSON): `{longUrl:"http://www.rishiqing.com/task?t=12343wefw32f32sf32"}`
 或
-body(JSON): {shortCode:"E9die0hq"}
+body(JSON): `{shortCode:"E9die0hq"}`
 
 ### 返回值：
 return value:
-{
-    errcode: 0,
-    longUrl: "http://www.rishiqing.com/task?t=12343wefw32f32sf32",
-    shortCode: "E9die0hq"
-}
+
+    {
+        errcode: 0,
+        longUrl: "http://www.rishiqing.com/task?t=12343wefw32f32sf32",
+        shortCode: "E9die0hq"
+    }
+
 
 ## 通过长短链接映射
 
 ### 请求方式：
 post /rsq/shorturl/query
-body(JSON): {longUrl:"http://www.rishiqing.com/task?t=12343wefw32f32sf32"}
+body(JSON): `{longUrl:"http://www.rishiqing.com/task?t=12343wefw32f32sf32"}`
 或
-body(JSON): {shortCode:"E9die0hq"}
+body(JSON): `{shortCode:"E9die0hq"}`
 
 ### 返回值：
+
 return value:
-{
-    errcode: 0,
-    longUrl: "http://www.rishiqing.com/task?t=12343wefw32f32sf32",
-    shortCode: "E9die0hq",
-    shortDomain: "rurl.ltd"
-}
+
+    {
+        errcode: 0,
+        longUrl: "http://www.rishiqing.com/task?t=12343wefw32f32sf32",
+        shortCode: "E9die0hq",
+        shortDomain: "rurl.ltd"
+    }
 
 # 公共访问API（*）
 
