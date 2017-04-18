@@ -69,3 +69,5 @@ nodemon:
 ```nodemon -r dotenv/config bin/www dotenv_config_path=./.env```
 
 ## 方式2
+
+some test...
